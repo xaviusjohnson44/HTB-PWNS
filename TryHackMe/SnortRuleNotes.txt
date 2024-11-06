@@ -1,0 +1,22 @@
+alert tcp $EXTERNAL_NET any -> $HOME_NET $HTTP_PORTS (msg:"Directory Traversal Attempt!";flow:established;nocase; content:"HTTP"; fast_pattern; content:"| 2E 2E 2F|"; content:"/..";session:all;reference:CVE,XXX;sid:100001; rev:1;)
+
+
+alert tcp any any <> any any (msg:"PNG Found!";content:".png";sid:1000001;rev:1)
+
+
+#Process Snort File
+
+# /etc/snort/snort.conf = Default config
+
+sudo snort -c $Rulelocation -q -r file.pcap -A console
+
+
+sudo snort -v -r /var/log/snort -X
+
+
+
+block tcp any 4444 <> any any (msg:"ReverseShell Stopped";sid:1000001;rev:1)
+
+IPS Mode:
+
+sudo snort -c /etc/snort/rules/local.rules -q -Q --daq afpacket -i eth0:eth1 -A console
