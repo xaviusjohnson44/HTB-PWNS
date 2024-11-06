@@ -1,1 +1,1 @@
-#This is a repo for shwoing of my TryHackMe learning!
+#This is a repo for showing off my TryHackMe learning!
